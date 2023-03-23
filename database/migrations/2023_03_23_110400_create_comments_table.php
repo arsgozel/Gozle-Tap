@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->unsignedBigInteger('vacancy_id')->index();
+            $table->foreign('vacancy_id')->references('id')->on('vacancies')->cascadeOnDelete();
+            $table->unsignedTinyInteger('is_approved')->default(0);
+            $table->text('comment');
             $table->timestamps();
         });
     }

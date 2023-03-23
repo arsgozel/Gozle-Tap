@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vacancy_attribute_value', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('vacancy_id')->index();
+            $table->foreign('vacancy_id')->references('id')->on('vacancies')->cascadeOnDelete();
+            $table->unsignedBigInteger('attribute_value_id')->index();
+            $table->foreign('attribute_value_id')->references('id')->on('attribute_values')->cascadeOnDelete();
+            $table->primary(['vacancy_id', 'attribute_value_id']);
+            $table->unsignedInteger('sort_order')->default(1);
         });
     }
 

@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resume_attribute_value', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('resume_id')->index();
+            $table->foreign('resume_id')->references('id')->on('resumes')->cascadeOnDelete();
+            $table->unsignedBigInteger('attribute_value_id')->index();
+            $table->foreign('attribute_value_id')->references('id')->on('attribute_values')->cascadeOnDelete();
+            $table->primary(['resume_id', 'attribute_value_id']);
+            $table->unsignedInteger('sort_order')->default(1);
         });
     }
 

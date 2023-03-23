@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_agents', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('browser_login');
+            $table->string('browser_version');
+            $table->string('device_login');
+            $table->string('device_version');
         });
     }
 
